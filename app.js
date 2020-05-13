@@ -16,7 +16,11 @@ app.post("/api/private-chat-request", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("User connected on port 3001");
 });
 
-module.exports = app;
+http.listen(3001, () => {
+  console.log("Server running on port 3001");
+});
+
+module.exports = http;
