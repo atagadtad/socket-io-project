@@ -17,16 +17,17 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected on port 8000");
   if (!users[socket.id]) {
     users[socket.id] = socket.id;
+    console.log("User connected on port 8000", { users });
   }
 
   socket.emit("yourID", socket.id);
-  io.sockets.emit("allUsers", users);
+  io.socket.emit("allUsers", users);
 
   socket.on("disconnect", () => {
     delete users[socket.id];
+    console.log("disconnected", { users });
   });
 
   socket.on("callUser", (data) => {
@@ -41,4 +42,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => console.log("server is running on port 3001"));
+server.listen(port, () => console.log("server is running on port 8000"));
