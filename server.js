@@ -38,7 +38,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("endTheCall", (data) => {
-    console.log({ data });
+    io.to(data.from).emit("endCall");
+    // console.log("data.from: ", data.from, "data.to: ", data.to);
+    io.to(data.to).emit("endCall");
   });
 
   socket.on("acceptCall", (data) => {
