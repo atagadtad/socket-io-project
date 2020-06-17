@@ -46,6 +46,11 @@ io.on("connection", (socket) => {
   socket.on("acceptCall", (data) => {
     io.to(data.to).emit("callAccepted", data.signal);
   });
+
+  socket.on("declineCall", (data) => {
+    // console.log({ data });
+    io.to(data.from).emit("callDeclined", { callDeclined: true });
+  });
 });
 
 server.listen(port, () => console.log("server is running on port 8000"));
