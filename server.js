@@ -18,7 +18,9 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   if (!users[socket.id]) {
-    users[socket.id] = socket.id;
+    // users[socket.id] = socket.id;
+    users[socket.id] = { socketID: socket.id, userName: "" };
+
     console.log("User connected on port 8000", { users });
   }
 
