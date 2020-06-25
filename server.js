@@ -53,6 +53,15 @@ io.on("connection", (socket) => {
     // console.log({ data });
     io.to(data.from).emit("callDeclined", { callDeclined: true });
   });
+
+  socket.on("changeUsername", (data) => {
+    // console.log({ data });
+    users[socket.id].userName = data.updatedUsername;
+    io.sockets.emit("allUsers", users);
+    io.to(socket.id).emit("updatedUsername", {
+      updatedUsername: data.updatedUsername,
+    });
+  });
 });
 
 server.listen(port, () => console.log("server is running on port 8000"));
